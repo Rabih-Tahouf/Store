@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -10,7 +11,7 @@ from db import db
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #sqlal db will live at root folder of our porject; can be Mysql, postgreSQL or any other sql enginer
+app.config['SQLALCHEMY_DATABASE_URI'] = os.enivron.get('DATABASE_URL','sqlite:///data.db')#sqlal db will live at root folder of our porject; can be Mysql, postgreSQL or any other sql enginer
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turning off "flask sqlal tracker" b/c sqlal has its own modification tracker
 app.secret_key = 'Rabih'
 api = Api(app)
