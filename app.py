@@ -10,16 +10,11 @@ from resources.store import Store, StoreList
 from db import db 
 
 
-app = Flask(__name__)
-db.init_app(app) 
+app = Flask(__name__) 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.enivron.get('DATABASE_URL','sqlite:///data.db')#sqlal db will live at root folder of our porject; can be Mysql, postgreSQL or any other sql enginer
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #turning off "flask sqlal tracker" b/c sqlal has its own modification tracker
 app.secret_key = 'Rabih'
 api = Api(app)
-
-@app.before_first_request  #decorator, run it (method) before first request into this app/ will create data.db file, create tables into this file unless they exist
-def create_tables():
-    db.create_all()
 
 jwt = JWT(app, authenticate, identity)
 
